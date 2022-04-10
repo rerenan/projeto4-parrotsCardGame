@@ -30,7 +30,6 @@ for(i=0; i<cardsQty; i++){
         </div>
     </div>`
 }
-
 function turnCard(card) {
     card.classList.add("selected");
     moves += 1;
