@@ -55,9 +55,16 @@ h1 {
 .back-face {
     transform: rotateY(180deg);
 }
-.card:active .back-face {
+.selected .back-face {
     transform: rotateY(0deg);
 }
-.card:active .front-face {
+.selected .front-face {
     transform: rotateY(-180deg);
+}
+
+.selected-end .back-face{
+    transform: rotateY(0deg);
+}
+.back-face img {
+    width: 85%;
 }
