@@ -49,7 +49,11 @@ function turnCard(card) {
             equalCards[i].classList.add("selected-end")
         }
         if(equalCards.length === cardsQty){
-            setTimeout(function () {alert(`Você ganhou em ${moves} jogadas!`);},1100);
+            setTimeout(function () {alert(`Você ganhou em ${moves} jogadas!`);
+            let reboot = prompt("Deseja reiniciar? (sim/não)")
+            if(reboot === "sim"){
+                window.location.reload(true)
+            }},1100);
         }
     }
     console.log(equalCards);
