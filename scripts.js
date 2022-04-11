@@ -31,31 +31,32 @@ for(i=0; i<cardsQty; i++){
     </div>`
 }
 function turnCard(card) {
-    card.classList.add("selected");
-    moves += 1;
-    let selectedCards = document.querySelectorAll(".selected");
-    if (selectedCards.length > 1){
-        if(selectedCards[0].querySelector(".back-face").innerHTML === selectedCards[1].querySelector(".back-face").innerHTML){
-            equalCards.push(selectedCards[0], selectedCards[1]);
-            selectedCards[0].classList.remove("selected");
-            selectedCards[1].classList.remove("selected");
-        } else {
-
-            setTimeout(function() {selectedCards[0].classList.remove("selected");
-            selectedCards[1].classList.remove("selected");},1000);
+    if(card.classList.contains("selected-end") == false){
+        card.classList.add("selected");
+        moves += 1;
+        let selectedCards = document.querySelectorAll(".selected");
+        if (selectedCards.length > 1){
+            if(selectedCards[0].querySelector(".back-face").innerHTML === selectedCards[1].querySelector(".back-face").innerHTML){
+                equalCards.push(selectedCards[0], selectedCards[1]);
+                selectedCards[0].classList.remove("selected");
+                selectedCards[1].classList.remove("selected");
+            } else {
+    
+                setTimeout(function() {selectedCards[0].classList.remove("selected");
+                selectedCards[1].classList.remove("selected");},1000);
+            }
+            for(let i = 0; i < equalCards.length; i++){
+                equalCards[i].classList.add("selected-end")
+            }
+            if(equalCards.length === cardsQty){
+                setTimeout(function () {alert(`Você ganhou em ${moves} jogadas!`);
+                let reboot = prompt("Deseja reiniciar? (sim/não)")
+                if(reboot === "sim"){
+                    window.location.reload(true)
+                }},1100);
+            }
         }
-        for(let i = 0; i < equalCards.length; i++){
-            equalCards[i].classList.add("selected-end")
-        }
-        if(equalCards.length === cardsQty){
-            setTimeout(function () {alert(`Você ganhou em ${moves} jogadas!`);
-            let reboot = prompt("Deseja reiniciar? (sim/não)")
-            if(reboot === "sim"){
-                window.location.reload(true)
-            }},1100);
-        }
-    }
-    console.log(equalCards);
+    }  
 }
 function comparador() { 
 	return Math.random() - 0.5; 
