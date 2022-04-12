@@ -1,10 +1,7 @@
 let equalCards = [];
 let moves = 0;
-let cardsQty = Number(prompt("Com quantas cartas deseja jogar?"));
-console.log(cardsQty % 2 ==! 0 )
-while(cardsQty % 2 ==! 0 || cardsQty < 4 || cardsQty >14 ){
-    cardsQty = Number(prompt("Com quantas cartas deseja jogar?"));
-}
+let cardsQty = parseInt(prompt("Com quantas cartas deseja jogar?"));
+let cardsInGame = [];
 const gifsTurnCards = [`<img src="/projeto4-parrotsCardGame/imgs/bobrossparrot.gif">`,
 `<img src="/projeto4-parrotsCardGame/imgs/explodyparrot.gif">`,
 `<img src="/projeto4-parrotsCardGame/imgs/fiestaparrot.gif">`,
@@ -12,28 +9,37 @@ const gifsTurnCards = [`<img src="/projeto4-parrotsCardGame/imgs/bobrossparrot.g
 `<img src="/projeto4-parrotsCardGame/imgs/revertitparrot.gif">`,
 `<img src="/projeto4-parrotsCardGame/imgs/tripletsparrot.gif">`,
 `<img src="/projeto4-parrotsCardGame/imgs/unicornparrot.gif"></img>`]
-gifsTurnCards.sort(comparador);
-let cardsInGame = [];
-for(i=0; i<cardsQty/2; i++){
-cardsInGame.push(gifsTurnCards[i],gifsTurnCards[i]);
-}
-cardsInGame.sort(comparador);
 
-for(i=0; i<cardsQty; i++){
-    const cardsContainer = document.querySelector(".cards-container");
-    cardsContainer.innerHTML += `
-    <div class="card" onclick="turnCard(this)">
-        <div class="front-face face"> 
-            <img src="/projeto4-parrotsCardGame/imgs/front.png"> </div>
-        <div class="back-face face">
-            ${cardsInGame[i]}
-        </div>
-    </div>`
+function startGame(){
+    while(cardsQty % 2 ==! 0 || cardsQty < 4 || cardsQty >14 || isNaN(cardsQty)){
+        cardsQty = parseInt(prompt("Com quantas cartas deseja jogar?"));
+    }
+    gifsTurnCards.sort(comparador);
+    
+    for(i=0; i<cardsQty/2; i++){
+    cardsInGame.push(gifsTurnCards[i],gifsTurnCards[i]);
+    }
+    
+    cardsInGame.sort(comparador);
+    
+    for(i=0; i<cardsQty; i++){
+        const cardsContainer = document.querySelector(".cards-container");
+        cardsContainer.innerHTML += `
+        <div class="card" onclick="turnCard(this)">
+            <div class="front-face face"> 
+                <img src="/projeto4-parrotsCardGame/imgs/front.png"> </div>
+            <div class="back-face face">
+                ${cardsInGame[i]}
+            </div>
+        </div>`
+    }
 }
 function turnCard(card) {
-    if(card.classList.contains("selected-end") == false){
+    if(card.classList.contains("selected-end") === false){
+        if(card.classList.contains("selected") === false){
+            moves += 1;
+        }
         card.classList.add("selected");
-        moves += 1;
         let selectedCards = document.querySelectorAll(".selected");
         if (selectedCards.length > 1){
             if(selectedCards[0].querySelector(".back-face").innerHTML === selectedCards[1].querySelector(".back-face").innerHTML){
@@ -61,3 +67,4 @@ function turnCard(card) {
 function comparador() { 
 	return Math.random() - 0.5; 
 }
+startGame();
